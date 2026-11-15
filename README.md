@@ -18,8 +18,9 @@ Sistema para auxiliar o administrador de uma página de conteúdo automotivo a *
 
 ## Status
 
-- Etapa atual: levantamento de requisitos e planejamento (documentação).
-- Implementação: ainda não iniciada.
+- Etapa atual: primeiro incremento implementado (MVP) e documentação atualizada.
+- Stack: Python, Flask e SQLite. Cinco módulos implementados (conteúdo, produção, agenda, eventos e oportunidades, acesso) com 27 testes automatizados.
+- Falta: avaliação do primeiro incremento com o cliente (veja [`docs/10-pendencias.md`](docs/10-pendencias.md)).
 - Requisitos, regras e prioridades marcados como "pendentes" aguardam validação com o cliente (veja [`docs/10-pendencias.md`](docs/10-pendencias.md) e as *Issues* do repositório).
 
 ## Documentação
@@ -38,10 +39,24 @@ Sistema para auxiliar o administrador de uma página de conteúdo automotivo a *
 | 10 | [Pendências e dúvidas para o cliente](docs/10-pendencias.md) |
 | 11 | [Registro de etapa e retrospectiva](docs/11-retrospectiva.md) |
 | 12 | [Declaração de contribuição e uso de IA](docs/12-contribuicao-e-uso-de-ia.md) |
+| 13 | [Registro de correções e atualizações](docs/13-registro-de-correcoes.md) |
+| 14 | [Implementação: arquitetura do código, rotas e execução](docs/14-implementacao.md) |
 | ADR-001 | [Organização modular do sistema](docs/adr/ADR-001-organizacao-modular.md) |
+| ADR-002 | [Stack: Python, Flask e SQLite](docs/adr/ADR-002-stack-python-flask-sqlite.md) |
+| ADR-003 | [Materiais como referências (sem upload)](docs/adr/ADR-003-materiais-por-referencia.md) |
 
 ## Como contribuir (equipe)
 
 1. Cada tarefa deve ter uma *Issue*.
 2. Crie uma *branch* a partir da `main` (ex.: `feature/agenda`).
 3. Abra um *Pull Request* e peça revisão do outro integrante antes do *merge*.
+
+## Como executar o sistema
+
+```
+pip install -r requirements.txt
+python criar_admin.py   # uma vez: cria o administrador
+python run.py           # abre em http://127.0.0.1:5000
+python -m pytest        # testes
+python backup.py        # cópia de segurança do banco
+```

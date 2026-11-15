@@ -20,8 +20,8 @@
 15. Detalhar funcionamento da agenda editorial (H03)
 16. Preparar proposta e apresentação do 1º incremento
 17. Marcar o próximo contato com o cliente
-18. Confirmar data da Ata nº 01 (29/11 vs. 02/11/2026)
+18. ~~Confirmar data da Ata nº 01~~ — resolvido: 29/10 (registrado em CORR-001). Criar issue só para acompanhamento, já fechada
 19. Preencher datas da matriz de riscos, registro de mudanças e ADR-001
-20. Confirmar percentuais de contribuição e atualizar declaração de uso de IA
+20. Confirmar percentuais de contribuição e atualizar declaração de uso de IA incluindo o Gemini, com versão e finalidade (CORR-002)
 21. Registrar evidências reais (quadro, commits, PRs, pipeline)
 22. Confirmar se o padrão Strategy será mesmo necessário
