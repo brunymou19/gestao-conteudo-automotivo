@@ -1,0 +1,35 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Gestão de Conteúdo Automotivo</title>
+<style>body{font-family:system-ui,sans-serif;max-width:640px;margin:auto;padding:12px}
+section{border:1px solid #ccc;border-radius:8px;padding:10px;margin:10px 0}
+input,select,button,textarea{font-size:1rem;padding:8px;margin:3px 0;width:100%;box-sizing:border-box}
+.alerta{background:#fff3cd;padding:6px;border-radius:6px}.atraso{color:#b00020}li{margin:6px 0}</style></head><body>
+<h1>Agenda de conteúdos</h1><div id="msg" class="alerta" hidden></div>
+<section><h2>Nova ideia / conteúdo</h2>
+<input id="titulo" placeholder="Título"><textarea id="desc" placeholder="Descrição"></textarea>
+<select id="cat"><option value="">Sem categoria</option></select>
+<button onclick="criar()">Registrar</button>
+<input id="ncat" placeholder="Nova categoria"><button onclick="novaCat()">Adicionar categoria</button></section>
+<section><h2>Conteúdos</h2><ul id="lista"></ul></section>
+<section><h2>Pendentes (sem data)</h2><ul id="pend"></ul></section>
+<section><h2>Agenda</h2><ul id="agenda"></ul></section>
+<script>
+let ESTADOS=[];
+const $=id=>document.getElementById(id);
+const aviso=t=>{$('msg').textContent=t||'';$('msg').hidden=!t};
+const api=async(u,m='GET',b)=>{const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json'},body:b&&JSON.stringify(b)});
+ const j=await r.json();if(!r.ok){aviso(j.erro);throw j}return j};
+async function carregar(){ESTADOS=await api('/api/estados');
+ const cs=await api('/api/categorias');$('cat').innerHTML='<option value="">Sem categoria</option>'+cs.map(c=>`<option value=${c.id}>${c.nome}</option>`).join('');
+ const L=await api('/api/conteudos');$('lista').innerHTML=L.map(c=>`<li><b>${c.titulo}</b> ${c.categoria?'('+c.categoria+')':''}<br>
+  <select onchange="estado(${c.id},this.value)">${ESTADOS.map(e=>`<option ${e==c.estado?'selected':''}>${e}</option>`).join('')}</select>
+  <input type=date id=d${c.id} value="${c.data||''}"><input type=time id=h${c.id} value="${c.hora||''}">
+  <button onclick="agendar(${c.id})">Agendar</button></li>`).join('');
+ $('pend').innerHTML=(await api('/api/pendentes')).map(c=>`<li>${c.titulo} <i>(${c.estado})</i></li>`).join('')||'<li>Nada pendente</li>';
+ $('agenda').innerHTML=(await api('/api/agenda')).map(a=>`<li class="${a.atrasado?'atraso':''}">${a.data} ${a.hora} — ${a.titulo} (${a.estado})${a.atrasado?' ⚠ atrasado':''}</li>`).join('')||'<li>Vazia</li>'}
+async function criar(){await api('/api/conteudos','POST',{titulo:$('titulo').value,descricao:$('desc').value,categoria_id:$('cat').value});$('titulo').value=$('desc').value='';aviso('');carregar()}
+async function novaCat(){await api('/api/categorias','POST',{nome:$('ncat').value});$('ncat').value='';aviso('');carregar()}
+async function estado(id,e){await api(`/api/conteudos/${id}/estado`,'PATCH',{estado:e});aviso('');carregar()}
+async function agendar(id){const r=await api('/api/agenda','POST',{conteudo_id:id,data:$('d'+id).value,hora:$('h'+id).value});aviso(r.alerta);carregar()}
+carregar();
+</script></body></html>
