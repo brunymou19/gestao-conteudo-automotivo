@@ -1,35 +1,72 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Gestão de Conteúdo Automotivo</title>
-<style>body{font-family:system-ui,sans-serif;max-width:640px;margin:auto;padding:12px}
+<style>body{font-family:system-ui,sans-serif;max-width:680px;margin:auto;padding:12px}
 section{border:1px solid #ccc;border-radius:8px;padding:10px;margin:10px 0}
 input,select,button,textarea{font-size:1rem;padding:8px;margin:3px 0;width:100%;box-sizing:border-box}
-.alerta{background:#fff3cd;padding:6px;border-radius:6px}.atraso{color:#b00020}li{margin:6px 0}</style></head><body>
-<h1>Agenda de conteúdos</h1><div id="msg" class="alerta" hidden></div>
-<section><h2>Nova ideia / conteúdo</h2>
-<input id="titulo" placeholder="Título"><textarea id="desc" placeholder="Descrição"></textarea>
-<select id="cat"><option value="">Sem categoria</option></select>
-<button onclick="criar()">Registrar</button>
-<input id="ncat" placeholder="Nova categoria"><button onclick="novaCat()">Adicionar categoria</button></section>
+.alerta{background:#fff3cd;padding:6px;border-radius:6px;margin:4px 0}.atraso{color:#b00020}li{margin:6px 0}
+.dia{border:1px dashed #999;border-radius:6px;padding:6px;margin:6px 0}.item{background:#e8eefc;padding:4px;margin:3px 0;border-radius:4px;cursor:grab}
+summary{font-weight:bold;font-size:1.1rem}</style></head><body>
+<form method="post" action="/logout" style="text-align:right"><button style="width:auto">Sair</button></form>
+<h1>Gestão de conteúdo</h1><div id="msg" class="alerta" hidden></div>
+<section><h2>Nova ideia / conteúdo</h2><input id="titulo" placeholder="Título"><textarea id="desc" placeholder="Descrição"></textarea>
+<select id="cat"></select><button onclick="criar()">Registrar</button>
+<input id="ncat" placeholder="Nova editoria"><button onclick="novaCat()">Adicionar editoria</button></section>
 <section><h2>Conteúdos</h2><ul id="lista"></ul></section>
 <section><h2>Pendentes (sem data)</h2><ul id="pend"></ul></section>
-<section><h2>Agenda</h2><ul id="agenda"></ul></section>
+<section><h2>Agenda (arraste um item para outro dia)</h2><div id="agenda"></div></section>
+<section><h2>Regras semanais (sugestões)</h2>
+<select id="rdia"><option value=0>segunda</option><option value=1>terça</option><option value=2>quarta</option><option value=3>quinta</option><option value=4>sexta</option><option value=5>sábado</option><option value=6>domingo</option></select>
+<input id="rdesc" placeholder="Ex.: encontro da semana"><select id="rcat"></select><button onclick="novaRegra()">Salvar regra</button><ul id="regras"></ul></section>
+<section><h2>Eventos</h2><input id="evn" placeholder="Nome do evento"><input id="evd" type="date"><input id="evq" placeholder="Quem pediu">
+<select id="evt"><option value="divulgacao_antecipada">Divulgação antecipada</option><option value="cobertura_durante">Cobertura durante</option><option value="publicacao_posterior">Publicação posterior</option></select>
+<input id="evp" type="date" title="Prazo"><button onclick="novoEvento()">Registrar evento</button><ul id="eventos"></ul></section>
+<section><h2>Oportunidades e parcerias</h2><input id="opc" placeholder="Nome do contato">
+<select id="opk"><option value="instagram">Instagram</option><option value="email">E-mail</option><option value="outro">Outro</option></select>
+<textarea id="opp" placeholder="Proposta"></textarea><textarea id="opd" placeholder="Condições"></textarea>
+<button onclick="novaOp()">Registrar oportunidade</button><ul id="ops"></ul></section>
 <script>
-let ESTADOS=[];
-const $=id=>document.getElementById(id);
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const SIT_EV=['pendente','concluido','cancelado'],SIT_OP=['nova','em_conversa','aceita','recusada','concluida'];
 const aviso=t=>{$('msg').textContent=t||'';$('msg').hidden=!t};
 const api=async(u,m='GET',b)=>{const r=await fetch(u,{method:m,headers:{'Content-Type':'application/json'},body:b&&JSON.stringify(b)});
- const j=await r.json();if(!r.ok){aviso(j.erro);throw j}return j};
-async function carregar(){ESTADOS=await api('/api/estados');
- const cs=await api('/api/categorias');$('cat').innerHTML='<option value="">Sem categoria</option>'+cs.map(c=>`<option value=${c.id}>${c.nome}</option>`).join('');
- const L=await api('/api/conteudos');$('lista').innerHTML=L.map(c=>`<li><b>${c.titulo}</b> ${c.categoria?'('+c.categoria+')':''}<br>
-  <select onchange="estado(${c.id},this.value)">${ESTADOS.map(e=>`<option ${e==c.estado?'selected':''}>${e}</option>`).join('')}</select>
-  <input type=date id=d${c.id} value="${c.data||''}"><input type=time id=h${c.id} value="${c.hora||''}">
-  <button onclick="agendar(${c.id})">Agendar</button></li>`).join('');
- $('pend').innerHTML=(await api('/api/pendentes')).map(c=>`<li>${c.titulo} <i>(${c.estado})</i></li>`).join('')||'<li>Nada pendente</li>';
- $('agenda').innerHTML=(await api('/api/agenda')).map(a=>`<li class="${a.atrasado?'atraso':''}">${a.data} ${a.hora} — ${a.titulo} (${a.estado})${a.atrasado?' ⚠ atrasado':''}</li>`).join('')||'<li>Vazia</li>'}
-async function criar(){await api('/api/conteudos','POST',{titulo:$('titulo').value,descricao:$('desc').value,categoria_id:$('cat').value});$('titulo').value=$('desc').value='';aviso('');carregar()}
-async function novaCat(){await api('/api/categorias','POST',{nome:$('ncat').value});$('ncat').value='';aviso('');carregar()}
-async function estado(id,e){await api(`/api/conteudos/${id}/estado`,'PATCH',{estado:e});aviso('');carregar()}
-async function agendar(id){const r=await api('/api/agenda','POST',{conteudo_id:id,data:$('d'+id).value,hora:$('h'+id).value});aviso(r.alerta);carregar()}
+ if(r.status==401){location='/login';throw {}}const j=await r.json();if(!r.ok){aviso(j.erro);throw j}return j};
+const opts=(a,s)=>a.map(e=>`<option ${e==s?'selected':''}>${e}</option>`).join('');
+const hojeLocal=i=>new Date(Date.now()+i*864e5).toLocaleDateString('sv-SE');
+async function carregar(){const ES=await api('/api/estados'),CS=await api('/api/categorias');
+ $('cat').innerHTML='<option value="">Sem editoria</option>'+CS.map(c=>`<option value=${c.id}>${esc(c.nome)}</option>`).join('');$('rcat').innerHTML=$('cat').innerHTML;
+ $('lista').innerHTML=(await api('/api/conteudos')).map(c=>`<li><b>${esc(c.titulo)}</b> ${c.categoria?'('+esc(c.categoria)+')':''}<br>
+  <select onchange="estado(${c.id},this.value)">${opts(ES,c.estado)}</select>
+  <input type=date id=d${c.id} value="${c.data||''}"><input type=time id=h${c.id} value="${c.hora||''}"><button onclick="agendar(${c.id})">Agendar</button>
+  <ul>${c.materiais.map(m=>`<li>${esc(m.tipo)}: ${esc(m.referencia)} <a href=# onclick="delMat(${m.id});return false">remover</a></li>`).join('')}</ul>
+  <button onclick="addMat(${c.id})">+ material (referência, sem upload)</button></li>`).join('');
+ $('pend').innerHTML=(await api('/api/pendentes')).map(c=>`<li>${esc(c.titulo)} <i>(${c.estado})</i></li>`).join('')||'<li>Nada pendente</li>';
+ const A=await api('/api/agenda'),S=await api('/api/sugestoes'),dias={};
+ for(let i=0;i<14;i++)dias[hojeLocal(i)]=[];A.forEach(a=>(dias[a.data]=dias[a.data]||[]).push(a));
+ $('agenda').innerHTML=Object.keys(dias).sort().map(d=>`<div class=dia ondragover="event.preventDefault()" ondrop="soltar(event,'${d}')"><b>${d}</b> (${dias[d].length}/2)
+  ${S.filter(s=>s.data==d).map(s=>`<div class=alerta>Sugestão: ${esc(s.descricao)}</div>`).join('')}
+  ${dias[d].map(a=>`<div class="item ${a.atrasado?'atraso':''}" draggable=true ondragstart="event.dataTransfer.setData('id','${a.id}')">${a.hora} — ${esc(a.titulo)} (${a.estado})${a.atrasado?' ⚠ atrasado':''}
+  <input type=date onchange="mover(${a.id},this.value)" title="mudar data"></div>`).join('')}</div>`).join('');
+ $('regras').innerHTML=(await api('/api/regras-semanais')).map(r=>`<li>${r.dia}: ${esc(r.descricao)} <a href=# onclick="delRegra(${r.dia_semana});return false">remover</a></li>`).join('');
+ $('eventos').innerHTML=(await api('/api/eventos')).map(e=>`<li class="${e.atrasado?'atraso':''}"><b>${esc(e.nome)}</b> — ${e.data} — ${esc(e.solicitante)} — ${e.tipo} — prazo ${e.prazo||'-'}${e.atrasado?' ⚠ atrasado':''}<br>
+  <select onchange="evSit(${e.id},this.value)">${opts(SIT_EV,e.situacao)}</select><button onclick="evAgendar(${e.id})">Agendar publicação</button></li>`).join('')||'<li>Nenhum evento</li>';
+ $('ops').innerHTML=(await api('/api/oportunidades')).map(o=>`<li><b>${esc(o.contato)}</b> (${o.canal}) — ${esc(o.proposta)}<br><i>${esc(o.condicoes)}</i><br>
+  <select onchange="opSit(${o.id},this.value)">${opts(SIT_OP,o.situacao)}</select></li>`).join('')||'<li>Nenhuma oportunidade</li>'}
+const fazer=async(f)=>{try{await f();aviso('')}catch(e){}carregar()};
+const criar=()=>fazer(async()=>{await api('/api/conteudos','POST',{titulo:$('titulo').value,descricao:$('desc').value,categoria_id:$('cat').value});$('titulo').value=$('desc').value=''});
+const novaCat=()=>fazer(async()=>{await api('/api/categorias','POST',{nome:$('ncat').value});$('ncat').value=''});
+const estado=(id,e)=>fazer(()=>api(`/api/conteudos/${id}/estado`,'PATCH',{estado:e}));
+const agendar=id=>fazer(async()=>{const r=await api('/api/agenda','POST',{conteudo_id:id,data:$('d'+id).value,hora:$('h'+id).value});aviso(r.alerta)});
+const mover=(id,d)=>fazer(async()=>{const r=await api('/api/agenda/'+id,'PATCH',{data:d});aviso(r.alerta)});
+const soltar=(e,d)=>{e.preventDefault();mover(+e.dataTransfer.getData('id'),d)};
+const addMat=id=>{const ref=prompt('Referência (nome do arquivo, pasta ou link):');if(!ref)return;const tipo=prompt('Tipo: foto, video ou outro','foto');
+ fazer(()=>api(`/api/conteudos/${id}/materiais`,'POST',{tipo,referencia:ref}))};
+const delMat=id=>fazer(()=>api('/api/materiais/'+id,'DELETE'));
+const novaRegra=()=>fazer(()=>api('/api/regras-semanais','PUT',{dia_semana:+$('rdia').value,descricao:$('rdesc').value,categoria_id:$('rcat').value||null}));
+const delRegra=d=>fazer(()=>api('/api/regras-semanais/'+d,'DELETE'));
+const novoEvento=()=>fazer(()=>api('/api/eventos','POST',{nome:$('evn').value,data:$('evd').value,solicitante:$('evq').value,tipo:$('evt').value,prazo:$('evp').value}));
+const evSit=(id,s)=>fazer(()=>api(`/api/eventos/${id}/situacao`,'PATCH',{situacao:s}));
+const evAgendar=id=>{const d=prompt('Data da publicação (AAAA-MM-DD):');const h=prompt('Hora (HH:MM):');if(d&&h)fazer(async()=>{const r=await api(`/api/eventos/${id}/agendar`,'POST',{data:d,hora:h});aviso(r.alerta)})};
+const novaOp=()=>fazer(()=>api('/api/oportunidades','POST',{contato:$('opc').value,canal:$('opk').value,proposta:$('opp').value,condicoes:$('opd').value}));
+const opSit=(id,s)=>fazer(()=>api(`/api/oportunidades/${id}/situacao`,'PATCH',{situacao:s}));
 carregar();
 </script></body></html>

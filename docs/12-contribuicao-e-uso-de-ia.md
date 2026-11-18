@@ -11,7 +11,14 @@
 ## Declaração de uso de IA
 Houve uso de ferramentas de IA generativa na documentação do projeto (organização, estruturação, revisão e elaboração de textos, templates, matriz de riscos e retrospectiva). A declaração anterior cita **ChatGPT (GPT-6)**.
 
-> ⚠ **Atualizem esta declaração** se outras ferramentas de IA foram usadas — por exemplo, o Claude, usado para montar este repositório e organizar os documentos. Informem ferramenta, finalidade e parte do trabalho.
+> **Atualização necessária (CORR-002):** a declaração original cita apenas o ChatGPT, mas o grupo também utilizou o **Gemini**. Antes da entrega, incluam a ferramenta na tabela abaixo, com **versão/modelo** e **finalidade** reais.
+
+| Ferramenta e versão | Finalidade | Parte do trabalho |
+|---|---|---|
+| ChatGPT — modelo GPT-6 | Organização, estruturação, revisão e elaboração de textos | Documentação, requisitos, matriz de riscos, retrospectiva, templates |
+| Gemini — versão a informar | A informar pelos integrantes | A informar pelos integrantes |
+
+> Se outras ferramentas de IA também ajudaram (por exemplo, na organização destes arquivos do repositório), declarem-nas da mesma forma.
 
 **O que NÃO foi feito com IA:** entrevista com o cliente, observação da rotina, decisões finais dos integrantes, validação dos requisitos com o cliente, implementação do sistema e comprovação de resultados.
 
@@ -25,3 +32,14 @@ Houve uso de ferramentas de IA generativa na documentação do projeto (organiza
 | ChatGPT (GPT-6) | Apoio à documentação | Serviço proprietário da OpenAI | Elaboração manual e outras IAs | Estruturação e revisão textual |
 
 Bibliotecas, frameworks e serviços ainda não identificados não devem ser declarados como reutilizados.
+
+## Itens reutilizados na implementação
+Preencham a coluna de versão com o resultado de `python --version` e `pip show flask werkzeug pytest`.
+
+| Item | Uso | Licença | Alternativas consideradas | Motivo |
+|---|---|---|---|---|
+| Python (versão a informar) | Linguagem do sistema | Licença PSF | Node.js, Java | Simplicidade e testes rápidos |
+| Flask (versão a informar) | Servidor web e API | BSD-3-Clause | Django, FastAPI | Leve e adequado ao porte do projeto |
+| Werkzeug (instalado com o Flask) | Hash de senha e utilitários | BSD-3-Clause | bcrypt/argon2 | Já vem com o Flask |
+| SQLite (módulo `sqlite3` do Python) | Banco de dados | Domínio público | PostgreSQL, MySQL | Sem servidor; arquivo único; um administrador |
+| pytest (versão a informar) | Testes automatizados | MIT | unittest | Escrita simples dos testes |

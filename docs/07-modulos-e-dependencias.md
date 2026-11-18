@@ -23,3 +23,17 @@ Responsáveis: Bruno José Souza e Pablo Gonçalves Barbosa.
 1. Gerenciamento de Conteúdo → Produção: **aceitável** (o acompanhamento depende da etapa de produção; comunicar por interfaces definidas).
 2. Agenda → Gerenciamento de Conteúdo: **aceitável** (a agenda associa datas aos conteúdos; preservar ou ajustar interfaces se o módulo mudar).
 3. Eventos e Oportunidades → Agenda: **aceitável** (eventos geram compromissos; limitar a dependência às operações necessárias).
+
+## Situação de implementação (15/11/2026)
+
+| Módulo | Pasta no código | Situação |
+|---|---|---|
+| Gerenciamento de Conteúdo | `app/conteudo` | Implementado (inclui categorias e referências de materiais) |
+| Produção de Conteúdo | `app/producao` | Implementado (estados) |
+| Agenda e Publicações | `app/agenda` | Implementado (agenda, reorganização, atrasos, regras semanais) |
+| Eventos e Oportunidades | `app/eventos_oportunidades` | Implementado |
+| Usuário e Acesso | `app/acesso` | Implementado (login com senha em hash) |
+
+**Regras de dependência no código:** a Agenda muda o estado pela interface do módulo de Produção (Regra 1). A tela não contém regras de negócio (Regra 3). Eventos e Oportunidades usa as interfaces de Conteúdo e Agenda (Acoplamentos 2 e 3).
+
+**Ponto de atenção:** algumas consultas da Agenda e dos Eventos leem a tabela `conteudo` diretamente (JOIN). É aceitável no porte atual, mas não é acoplamento apenas por interface; fica como possível melhoria.

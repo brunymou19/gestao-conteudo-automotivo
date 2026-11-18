@@ -1,0 +1,8 @@
+__pycache__/
+.pytest_cache/
+*.db
+backups/
+.env
+.DS_Store
+Thumbs.db
+node_modules/

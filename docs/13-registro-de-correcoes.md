@@ -24,3 +24,17 @@ Este documento funciona como o "comitê de atualização/correção" do projeto:
 - **Problema:** o grupo também utilizou o **Gemini**, que não constava na declaração.
 - **Atualização necessária:** incluir o Gemini na declaração, informando versão/modelo, finalidade e parte do trabalho em que foi usado, além de manter os limites do uso (o que não foi feito com IA).
 - **Situação:** Em andamento. Falta informar a versão do Gemini e a finalidade exata.
+
+---
+
+# Atualizações
+
+## ATU-001 — Respostas às 12 dúvidas incorporadas
+- **Data:** 15/11/2026
+- **Origem:** informações repassadas pela equipe; a confirmação formal com o cliente ocorrerá na avaliação do primeiro incremento.
+- **Documentos atualizados:** [02](02-historias-de-usuario.md), [03](03-regras-de-negocio.md), [09](09-registro-de-mudancas.md), [10](10-pendencias.md).
+
+## ATU-002 — Implementação do primeiro incremento e atualização de status
+- **Data:** 15/11/2026
+- **Mudança:** MVP implementado (cinco módulos, 27 testes). ADR-001 passou a **Aceito**; criadas ADR-002 (stack) e ADR-003 (materiais por referência); atualizados os documentos [04](04-cenarios-de-qualidade.md), [07](07-modulos-e-dependencias.md), [08](08-padrao-strategy.md), [12](12-contribuicao-e-uso-de-ia.md) e criado [14](14-implementacao.md).
+- **Situação:** concluída. Strategy e priorização automática seguem **não implementados**.

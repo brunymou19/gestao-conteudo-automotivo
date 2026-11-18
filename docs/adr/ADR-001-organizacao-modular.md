@@ -1,7 +1,7 @@
 # ADR-001 — Organização modular do sistema
 
-- **Status:** Proposto *(a equipe deve confirmar antes de marcar como Aceito)*
-- **Data:** a definir
+- **Status:** Aceito — implementado no MVP (atualizado em 15/11/2026)
+- **Data:** 15/11/2026
 - **Responsáveis:** Bruno José Souza e Pablo Gonçalves Barbosa
 - **Relacionados:** C01 Modificabilidade, C02 Usabilidade, RN01 Fluxo de produção, RN03 Limite de publicações
 
