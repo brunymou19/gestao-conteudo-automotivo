@@ -5,7 +5,7 @@ Projeto acadêmico da disciplina **Engenharia de Software II — CSI410**, Unive
 | | |
 |---|---|
 | **Integrantes** | Bruno José Souza e Pablo Gonçalves Barbosa |
-| **Cliente principal** | Igor Henrique — administrador de uma página de conteúdo automotivo |
+| **Cliente principal** | Administrador de uma página de conteúdo automotivo |
 | **Canal de publicação do cliente** | Instagram |
 
 ## Sobre o projeto
