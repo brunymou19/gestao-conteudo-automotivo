@@ -16,3 +16,10 @@ Ainda precisam de estímulo, ambiente, resposta e **métricas mensuráveis**, al
 - Não há número definido de usuários simultâneos.
 - Não foi identificada informação confidencial específica, mas deve haver controle de acesso a dados administrativos e de contatos.
 - Disponibilidade aceitável / informações mais críticas em caso de perda: **não definidos** (ver [pendências](10-pendencias.md)).
+
+## Situação dos cenários no primeiro incremento (15/11/2026)
+- **C01 Modificabilidade:** estados em um único arquivo, editorias cadastráveis na tela, limite e modo de aviso em constantes. Cumprido de forma básica.
+- **C02 Usabilidade:** tela única para celular, com campos simples. Não foi testada em celular real nem medida com o cliente.
+- **C03 Desempenho:** não medido; banco SQLite com poucos registros.
+- **C04 Confiabilidade:** dados persistidos em SQLite; `backup.py` copia o banco (o cliente apontou os materiais como o mais crítico). Backup é manual.
+- **C05 Segurança:** login com senha em hash, sessão por cookie e rotas protegidas. Sem limite de tentativas, recuperação de senha ou HTTPS.

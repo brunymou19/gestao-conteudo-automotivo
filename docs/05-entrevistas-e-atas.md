@@ -1,7 +1,7 @@
 # 05 — Entrevistas e atas de contato
 
 ## Ata nº 01 — Alinhamento inicial
-- **Data:** 29/11 *(⚠ conferir: o documento original traz 29/11, mas a entrevista presencial foi em 02/11/2026; provável erro de digitação — confirmar a data correta, ex.: 29/10)*
+- **Data:** 29/10 *(corrigida — o documento original trazia 29/11 por erro de digitação; ver [13 — Registro de correções](13-registro-de-correcoes.md), CORR-001)*
 - **Duração:** poucos minutos · **Plataforma:** grupo de WhatsApp
 - **Presentes:** Igor Henrique (cliente), Bruno José Souza, Pablo Gonçalves Barbosa
 - **Pauta:** apresentação da proposta, estabelecimento do contato, alinhamento da participação, organização da entrevista principal.

@@ -32,3 +32,6 @@ Testes com diferentes situações de conteúdo e solicitações, verificando se 
 
 ## Motivo da situação atual
 A aplicação depende de confirmar que o sistema realmente precisará de diferentes estratégias de priorização. A decisão será revisada durante o desenvolvimento para não adicionar complexidade sem necessidade.
+
+## Atualização (15/11/2026)
+O padrão **não foi implementado** no MVP. A priorização automática (RN05) ainda não existe no código, porque o cliente pediu primeiro a agenda e a organização. A decisão de usar o Strategy continua dependendo de confirmar que haverá critérios de priorização diferentes.

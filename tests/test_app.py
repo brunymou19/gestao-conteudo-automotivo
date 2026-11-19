@@ -1,10 +1,15 @@
 import pytest
 from app import create_app
 from app.agenda import service as agenda
+from app.acesso import service as acesso
 
 @pytest.fixture
 def c(tmp_path):
-    return create_app(str(tmp_path / "t.db")).test_client()
+    app = create_app(str(tmp_path / "t.db"), secret_key="teste")
+    acesso.criar_usuario(app.config["CONN"], "admin", "senha12345")
+    cli = app.test_client()
+    cli.post("/login", data={"usuario": "admin", "senha": "senha12345"})
+    return cli
 
 def novo(c, t="Opala 78"):
     return c.post("/api/conteudos", json={"titulo": t}).get_json()["id"]

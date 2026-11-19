@@ -1,0 +1,11 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Entrar</title>
+<style>body{font-family:system-ui,sans-serif;max-width:360px;margin:auto;padding:24px}
+input,button{font-size:1rem;padding:10px;margin:4px 0;width:100%;box-sizing:border-box}
+.erro{background:#fde8e8;padding:8px;border-radius:6px}</style></head><body>
+<h1>Entrar</h1>
+{% if erro %}<div class="erro">{{ erro }}</div>{% endif %}
+<form method="post" action="/login">
+<input name="usuario" placeholder="Usuário" autocomplete="username" required>
+<input name="senha" type="password" placeholder="Senha" autocomplete="current-password" required>
+<button type="submit">Entrar</button></form></body></html>
