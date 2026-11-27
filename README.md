@@ -41,6 +41,10 @@ Sistema para auxiliar o administrador de uma página de conteúdo automotivo a *
 | 12 | [Declaração de contribuição e uso de IA](docs/12-contribuicao-e-uso-de-ia.md) |
 | 13 | [Registro de correções e atualizações](docs/13-registro-de-correcoes.md) |
 | 14 | [Implementação: arquitetura do código, rotas e execução](docs/14-implementacao.md) |
+| 15 | [Plano de testes](docs/15-plano-de-testes.md) |
+| 16 | [Revisão da arquitetura](docs/16-revisao-da-arquitetura.md) |
+| 17 | [Checklist de revisão de código](docs/17-checklist-revisao-codigo.md) |
+| 18 | [Análise de impacto da mudança](docs/18-analise-de-impacto.md) |
 | ADR-001 | [Organização modular do sistema](docs/adr/ADR-001-organizacao-modular.md) |
 | ADR-002 | [Stack: Python, Flask e SQLite](docs/adr/ADR-002-stack-python-flask-sqlite.md) |
 | ADR-003 | [Materiais como referências (sem upload)](docs/adr/ADR-003-materiais-por-referencia.md) |
