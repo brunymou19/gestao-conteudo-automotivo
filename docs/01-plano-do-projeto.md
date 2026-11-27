@@ -2,7 +2,7 @@
 
 **Disciplina:** Engenharia de Software II — CSI410 · **Instituição:** UFOP
 **Integrantes:** Bruno José Souza e Pablo Gonçalves Barbosa
-**Cliente principal:** Igor Henrique — administrador de uma página de conteúdo automotivo
+**Cliente principal:** administrador de uma página de conteúdo automotivo
 
 ## 1. Visão do produto
 Sistema de Apoio à Gestão de Conteúdo Automotivo, para auxiliar o administrador na organização, acompanhamento e planejamento de suas atividades editoriais.
@@ -94,7 +94,7 @@ Prioridade do cliente: melhorar a organização geral do processo e ampliar a ca
 Plano e visão do produto · Registros de contatos e entrevistas · Levantamento e especificação de requisitos · Histórias de usuário e critérios de aceitação · Regras de negócio · Cenários de qualidade · Definição do escopo dos incrementos · Documentação arquitetural e decisões técnicas · Implementação do sistema · Avaliação e validação final com o cliente.
 
 ## 12. Aceite do cliente e consentimento
-- **Carta de aceite do cliente (Etapa 1):** assinada por Igor Henrique em 03/11/26.
+- **Carta de aceite do cliente (Etapa 1):** assinada pelo cliente em 03/11/26.
 - **Termo de consentimento (Etapas 1 e 4):** assinado. Autorizados: anotações, gravação de áudio, transcrição automática por IA, gravação de tela sem rosto, fotografias de ambiente/documentos sem identificar pessoas. **Não** autorizado o uso do nome nos relatórios (cliente identificado apenas pela função).
 - Os documentos originais assinados **não** devem ser publicados no repositório (guarde-os fora do GitHub).
 
