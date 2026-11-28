@@ -29,7 +29,7 @@ Não é a revisão de um PR; é uma verificação do código existente.
 | Independentes e repetíveis | ✔ | Banco temporário por teste (`tmp_path`) |
 | Não dependem de relógio, rede ou produção | Parcial | Sem rede; `atrasado` usa `date.today()` com datas fixas de 2020; `sugestoes` recebe a data como parâmetro |
 | Dublês usados adequadamente | Não se aplica | Nenhum dublê; SQLite temporário real |
-| O pipeline passou | **Não verificável** | Não há pipeline |
+| "✓" https://github.com/brunymou19/gestao-conteudo-automotivo/actions/runs/46084456947
 
 ### Higiene
 | Item | Situação | Evidência |
@@ -39,8 +39,13 @@ Não é a revisão de um PR; é uma verificação do código existente.
 | Sem código comentado ou morto | ✔ | Busca por código comentado não encontrou ocorrências |
 
 ## Registro para o relatório de qualidade
-| PR | Autor | Revisor | Problema encontrado na revisão | Resolvido? |
-|---|---|---|---|---|
-| #18 `copia-seguranca` → `main` (merge em 18/11/2026) | Bruno José Souza (merge) — conferir autor do PR | **Não evidenciado** | **Pendente.** Não foi possível ler os comentários do PR (API bloqueada); conferir a aba Conversation | **Pendente** |
 
-Nenhuma revisão foi simulada. Para os próximos PRs, o revisor deve ser o outro integrante, e os problemas devem ser registrados aqui.
+| PR | Autor | Revisor | Problema encontrado na revisão | Resolvido? |
+| :--- | :--- | :--- | :--- | :--- |
+| #19 Adiciona pipeline | Bruno | Pablo | (o que consta na Conversation; se nada: "Nenhum problema apontado; aprovado em dd/mm") | Sim / Não / Não se aplica |
+| #20 Aplica templates | Pablo | Bruno | (o que consta na Conversation; se nada: "Nenhum problema apontado; aprovado em dd/mm") | Sim / Não / Não se aplica |
+| #18 Reorganiza repositório | Bruno | Sem revisão registrada | Nenhum comentário ou problema registrado na Conversation | Não se aplica |
+
+| Módulo ou arquivo | Revisor | Problema | Issue | Decisão | Situação |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| (módulo/arquivo lido) | Bruno | (problema encontrado) | #(número) | corrigir / adiar | (situação) |
