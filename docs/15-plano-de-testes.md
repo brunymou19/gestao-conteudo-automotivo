@@ -59,7 +59,14 @@ Regra do professor: cada história deve ser testada por um integrante que não a
 ## Suíte completa de regressão
 - **Comando:** `python -m pytest` (na raiz do repositório)
 - **Número de testes:** 27
-- **Resultado:** 27 passaram
+- **Resultado:** - **Execuções no computador do grupo:**
+
+| Quem | Data e hora | Commit da main | Comando | Resultado |
+| :--- | :--- | :--- | :--- | :--- |
+| Bruno | 26/11/2026 22:00 | `e0e74b2` | `python -m pytest` | `27 passed in 10.28s` |
+| Pablo | 27/11/2026 22:20 | `python -m pytest` | `27 passed in 10.22s` |
+
+- **Pipeline (GitHub Actions):** (preencher apenas se tiver rodado na `main`, com data, resultado verde/vermelho e link da aba Actions)27 passaram
 - **Data e local da execução:** 26/11/2026, ambiente do assistente (cópia da `main`, commit 5281449). **A execução no computador do grupo ainda deve ser registrada.**
 
 ## Cenários de qualidade medidos
